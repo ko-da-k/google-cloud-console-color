@@ -1,0 +1,22 @@
+{
+  "manifest_version": 3,
+  "name": "GCP Console Color",
+  "version": "1.0.0",
+  "description": "Google Cloud Console のヘッダー色をプロジェクトごとに変えます。",
+  "permissions": ["storage"],
+  "action": {
+    "default_title": "GCP Console Color",
+    "default_popup": "options.html"
+  },
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": true
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://console.cloud.google.com/*"],
+      "js": ["content.js"],
+      "run_at": "document_start"
+    }
+  ]
+}

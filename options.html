@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <title>GCP Console Color の設定</title>
+    <style>
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        margin: 0;
+        padding: 16px;
+        min-width: 520px;
+        font: 13px/1.6 system-ui, sans-serif;
+      }
+      h1 {
+        margin: 0 0 4px;
+        font-size: 15px;
+      }
+      p.hint {
+        margin: 0 0 16px;
+        opacity: 0.7;
+      }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+      th {
+        text-align: left;
+        font-weight: 600;
+        padding: 0 8px 6px 0;
+        opacity: 0.7;
+      }
+      td {
+        padding: 0 8px 8px 0;
+        vertical-align: middle;
+      }
+      td:last-child,
+      th:last-child {
+        padding-right: 0;
+        width: 1%;
+      }
+      input[type='text'],
+      select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 5px 6px;
+        font: inherit;
+      }
+      input[type='color'] {
+        width: 44px;
+        height: 28px;
+        padding: 0;
+        border: none;
+        background: none;
+        cursor: pointer;
+      }
+      button {
+        font: inherit;
+        padding: 5px 12px;
+        cursor: pointer;
+      }
+      .remove {
+        padding: 4px 9px;
+        line-height: 1;
+      }
+      .empty {
+        padding: 12px 0;
+        opacity: 0.6;
+      }
+      .footer {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        margin-top: 16px;
+      }
+      .footer .spacer {
+        flex: 1;
+      }
+      .status {
+        opacity: 0;
+        color: #1e8e3e;
+        transition: opacity 0.15s;
+      }
+      .status.shown {
+        opacity: 1;
+      }
+      label.toggle {
+        display: block;
+        margin-top: 12px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>GCP Console Color</h1>
+    <p class="hint">
+      上のルールから順に照合し、最初に一致したものの色を使います。パターンはプロジェクト ID
+      に対して比較されます。
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>パターン</th>
+          <th style="width: 8em">一致方法</th>
+          <th style="width: 4em">色</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="rules"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>ルールがまだありません。</p>
+
+    <label class="toggle">
+      <input type="checkbox" id="auto-text-color" />
+      暗い色のときヘッダーの文字色を白にする
+    </label>
+
+    <div class="footer">
+      <button type="button" id="add">ルールを追加</button>
+      <span class="spacer"></span>
+      <span class="status" id="status">保存しました</span>
+      <button type="button" id="save">保存</button>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
+</html>
