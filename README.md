@@ -3,8 +3,6 @@
 Google Cloud Console のヘッダー色を、表示中のプロジェクト ID ごとに変える Chrome 拡張。
 複数プロジェクトを行き来するときに、本番環境で操作していることに気づけるようにするためのもの。
 
-サードパーティ依存もビルド工程もなし。ソースをそのまま読み込める。
-
 ## インストール
 
 1. このリポジトリを clone する
@@ -27,27 +25,6 @@ Google Cloud Console のヘッダー色を、表示中のプロジェクト ID �
 `prod` で終わるプロジェクトを赤にする、といった運用を想定している。
 
 設定を保存すると、開いている Console タブにリロードなしで反映される。
-
-## 構成
-
-| ファイル | 役割 |
-| --- | --- |
-| `manifest.json` | Manifest V3。権限は `storage` のみ |
-| `content.js` | プロジェクト ID を判定してヘッダーを着色する content script |
-| `options.html` | 設定 UI。ツールバーのポップアップとオプションページを兼ねる |
-| `options.js` | ルールの編集と `chrome.storage.sync` への保存 |
-
-## 実装メモ
-
-- Console は Angular 製の SPA なので、DOM に直接 `style` を書いても再描画で消える。
-  `<html>` 直下に置いた `<style>` から `!important` で当てることで、再描画を跨いで色を保つ。
-- 着色対象は `#ocb-platform-bar` と `<cfc-platform-bar>`。どちらも既定では背景が透明で、
-  ヘッダーの色は `<body>` の背景が透けているだけなので、塗るとそのまま帯になる。
-  `.ng-star-inserted` のような Angular 生成クラスは不安定なので使っていない。
-- Console 側の DOM 変更でセレクタが外れても色が分かるように、
-  画面最上部に 4px の独自オーバーレイを重ねている。
-- content script は隔離ワールドで動くためページ側の `pushState` をフックできない。
-  プロジェクトの切り替えは `location.href` のポーリング (800ms) で検知している。
 
 ## ライセンス
 
